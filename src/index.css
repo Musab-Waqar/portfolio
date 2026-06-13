@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700;900&family=Caveat:wght@400;600&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-border: var(--primary-border);
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-border: var(--secondary-border);
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted-border: var(--muted-border);
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-border: var(--accent-border);
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-destructive-border: var(--destructive-border);
+
+  --color-eng-red: var(--eng-red);
+  --color-eng-blue: var(--eng-blue);
+  --color-eng-gold: var(--eng-gold);
+
+  --font-sans: var(--app-font-sans);
+  --font-mono: var(--app-font-mono);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* Engineering theme palette */
+  --background: 38 30% 97%;       /* cream parchment #faf8f5 */
+  --foreground: 25 100% 8%;       /* dark ink #271a00 */
+
+  --border: 210 15% 82%;
+  --input: 210 15% 82%;
+  --ring: 4 63% 47%;
+
+  --card: 38 20% 94%;
+  --card-foreground: 25 100% 8%;
+  --card-border: 210 15% 80%;
+
+  --popover: 38 30% 97%;
+  --popover-foreground: 25 100% 8%;
+  --popover-border: 210 15% 82%;
+
+  --primary: 4 63% 47%;           /* engineering red #C0392B */
+  --primary-foreground: 0 0% 100%;
+  --primary-border: rgba(192,57,43,0.2);
+
+  --secondary: 38 20% 92%;
+  --secondary-foreground: 25 100% 8%;
+  --secondary-border: rgba(0,0,0,0.06);
+
+  --muted: 38 20% 90%;
+  --muted-foreground: 210 10% 45%;
+  --muted-border: rgba(0,0,0,0.04);
+
+  --accent: 38 20% 92%;
+  --accent-foreground: 25 100% 8%;
+  --accent-border: rgba(0,0,0,0.06);
+
+  --destructive: 4 63% 47%;
+  --destructive-foreground: 0 0% 100%;
+  --destructive-border: rgba(192,57,43,0.2);
+
+  /* Engineering accent colors */
+  --eng-red:  #C0392B;
+  --eng-blue: #2c5f8a;
+  --eng-gold: #b8860b;
+  --eng-green: #27ae60;
+
+  --app-font-sans: 'Inter', system-ui, sans-serif;
+  --app-font-mono: 'Fira Code', 'Courier New', monospace;
+
+  --radius: 0.125rem;
+  --button-outline: rgba(0,0,0,0.10);
+  --badge-outline: rgba(0,0,0,0.05);
+  --opaque-button-border-intensity: 9;
+  --elevate-1: rgba(0,0,0,0.03);
+  --elevate-2: rgba(0,0,0,0.06);
+}
+
+@layer base {
+  *, *::before, *::after {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* ── BLUEPRINT GRID BACKGROUND ────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(100,120,150,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100,120,150,0.10) 1px, transparent 1px),
+    linear-gradient(rgba(100,120,150,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100,120,150,0.04) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 10px 10px, 10px 10px;
+  pointer-events: none;
+}
+
+/* ── ENGINEERING RULERS ───────────────────────────────────── */
+.ruler-top {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 18px;
+  z-index: 300;
+  background: rgba(250,248,245,0.97);
+  border-bottom: 1px solid rgba(100,120,150,0.25);
+  pointer-events: none;
+}
+.ruler-top::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg, transparent 0px, transparent 39px,
+    rgba(100,120,150,0.35) 39px, rgba(100,120,150,0.35) 40px
+  );
+}
+.ruler-left {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 18px;
+  z-index: 300;
+  background: rgba(250,248,245,0.97);
+  border-right: 1px solid rgba(100,120,150,0.25);
+  pointer-events: none;
+}
+.ruler-left::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg, transparent 0px, transparent 39px,
+    rgba(100,120,150,0.35) 39px, rgba(100,120,150,0.35) 40px
+  );
+}
+.corner-mark {
+  position: fixed;
+  top: 0; left: 0;
+  width: 18px; height: 18px;
+  z-index: 301;
+  background: rgba(250,248,245,0.97);
+  border-right: 1px solid rgba(100,120,150,0.25);
+  border-bottom: 1px solid rgba(100,120,150,0.25);
+  pointer-events: none;
+}
+
+/* ── SPEC-SHEET CARD ──────────────────────────────────────── */
+.spec-sheet {
+  background: rgba(250,248,245,0.97);
+  border: 1.5px solid rgba(39,26,0,0.7);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+.spec-sheet:hover {
+  box-shadow: 3px 3px 0 rgba(39,26,0,0.7);
+}
+.spec-title-bar {
+  background: rgba(39,26,0,0.85);
+  color: rgba(250,248,245,1);
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  padding: 4px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+}
+.spec-body {
+  padding: 14px;
+}
+.spec-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(100,120,150,0.25);
+  background: rgba(100,120,150,0.04);
+}
+.eng-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  border: 1px solid rgba(100,120,150,0.3);
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(100,120,150,0.8);
+  background: rgba(250,248,245,0.5);
+}
+.eng-tag.red   { color: #C0392B; border-color: rgba(192,57,43,0.4); background: rgba(192,57,43,0.06); }
+.eng-tag.blue  { color: #2c5f8a; border-color: rgba(44,95,138,0.35); background: rgba(44,95,138,0.05); }
+.eng-tag.gold  { color: #b8860b; border-color: rgba(184,134,11,0.35); background: rgba(184,134,11,0.05); }
+.eng-tag.green { color: #27ae60; border-color: rgba(39,174,96,0.35); background: rgba(39,174,96,0.05); }
+
+/* ── COMPONENT BAR ROW ────────────────────────────────────── */
+.component-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(100,120,150,0.2);
+}
+.component-row:last-child { border-bottom: none; }
+.component-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: rgba(39,26,0,0.8);
+}
+.bar-track {
+  height: 3px;
+  background: rgba(100,120,150,0.18);
+  position: relative;
+  overflow: hidden;
+}
+.bar-fill {
+  position: absolute;
+  left: 0; top: 0; height: 100%;
+  width: 0;
+  background: rgba(39,26,0,0.7);
+  transition: width 1s ease-out;
+}
+.bar-fill.red  { background: #C0392B; }
+.bar-fill.blue { background: #2c5f8a; }
+.bar-fill.gold { background: #b8860b; }
+.bar-pct {
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  color: rgba(100,120,150,0.7);
+  width: 2.5rem;
+  text-align: right;
+}
+
+/* ── STATUS DOT ───────────────────────────────────────────── */
+.status-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: #27ae60;
+  border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 50% { opacity: 0.3; } }
+
+/* ── SECTION HEADER ───────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(39,26,0,0.8);
+  position: relative;
+}
+.section-ref {
+  position: absolute;
+  right: 0; bottom: 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  color: rgba(100,120,150,0.5);
+  letter-spacing: 1px;
+}
+.section-num-badge {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  color: #C0392B;
+  font-weight: 600;
+  letter-spacing: 2px;
+  border: 1px solid #C0392B;
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+
+/* ── DIM LINE (dimension line annotation) ─────────────────── */
+.dim-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 9px;
+  color: #2c5f8a;
+  margin: 4px 0;
+  letter-spacing: 1px;
+}
+.dim-line::before, .dim-line::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #2c5f8a;
+  opacity: 0.4;
+}
+
+/* ── COORD LABELS ─────────────────────────────────────────── */
+.coord-label {
+  position: fixed;
+  font-family: 'Fira Code', monospace;
+  font-size: 8px;
+  color: rgba(100,120,150,0.45);
+  letter-spacing: 0.5px;
+  z-index: 299;
+  pointer-events: none;
+}
+.coord-label.top { top: 4px; transform: translateX(-50%); }
+.coord-label.left { left: 1px; transform: translateY(-50%); writing-mode: vertical-rl; }
+
+/* ── SCROLLBAR ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(100,120,150,0.3); border-radius: 2px; }
