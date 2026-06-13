@@ -98,7 +98,12 @@ export default function TerminalSection() {
     return () => clearInterval(id);
   }, []);
 
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [history, welcome]);
+ //  This ONLY triggers when a user types a command
+useEffect(() => { 
+  if (history.length > 0) {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" }); 
+  }
+}, [history]);
 
   const run = (raw: string) => {
     const cmd = raw.trim().toLowerCase();
